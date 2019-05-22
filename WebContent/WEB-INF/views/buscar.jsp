@@ -6,12 +6,21 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Biblioteca</title>
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="resources/css/materialize.min.css">
+<script type="text/javascript"
+	src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js">
+      </script>
+<link rel="stylesheet" href="resources/css/admin.css">
 </head>
-<body>
+<body class = "container"> 
 	<h1>Biblioteca virtual</h1>
-	<h3>Se encontraron ${nLibros} resultados para ${buscado} en ${criterio}</h3>
+	<p>Se encontraron <b>${nLibros}</b> resultados para <b>${buscado}</b> en <b>${criterio}</b></p>
 	<a href="${pageContext.request.contextPath}/">Regresar</a>
-	<table>
+	<table class="highlight responsive-table y-depth-1">
 		<thead>
 			<tr>
 				<th>ID</th>

@@ -6,14 +6,23 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Biblioteca</title>
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="resources/css/materialize.min.css">
+<script type="text/javascript"
+	src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js">
+      </script>
+<link rel="stylesheet" href="resources/css/admin.css">
 </head>
-<body>
+<body class = "container"> 
 	<h1>Biblioteca virtual</h1>
-	<h3>Hay ${nLibros} libros en existencia, de ${nAutores} cantidad de autores
-		diferentes</h3>
+	<p>Hay <b>${nLibros}</b> libros en existencia de <b>${nAutores}</b> autores
+		diferentes</p>
 
 	<a href="${pageContext.request.contextPath}/">Regresar</a>
-	<table>
+	<table class="highlight responsive-table y-depth-1">
 		<thead>
 			<tr>
 				<th>ID</th>

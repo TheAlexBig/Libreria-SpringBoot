@@ -1,10 +1,6 @@
 package com.biblioteca.controller;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,19 +26,19 @@ public class LibroController {
 		List<Libro> libros;
 		switch (select) {
 		case 0:
-			libros = libroService.findAllTitulo(s);
+			libros = libroService.findSearchByColumn("l_titulo",s);
 			x="titulo";
 			break;
 		case 1:
-			libros = libroService.findAllAutor(s);
+			libros = libroService.findSearchByColumn("l_autor",s);
 			x="autor";
 			break;
 		case 2:
-			libros = libroService.findAllISBN(s);
+			libros = libroService.findSearchByColumn("l_cbarra",s);
 			x="ISBN";
 			break;
 		case 3:
-			libros = libroService.findAllGenero(s);
+			libros = libroService.findSearchByColumn("l_genero",s);
 			x="genero";
 			break;
 		default:
@@ -66,21 +62,20 @@ public class LibroController {
 		sb.append("Busqueda por existencias");
 		List<Libro> libros = libroService.findAllMore(a);
 		mav.addObject("libros", libros);
-		mav.addObject("busqueda", sb.toString());
+		mav.addObject("criterio", "cantidad disponibles");
+		mav.addObject("nLibros", libros.size());
+		mav.addObject("buscado", a.toString());
 		mav.setViewName("buscar");
 		return mav;
 	}
 	
 	@RequestMapping("/buscarTodos")
 	public ModelAndView buscarTodos() {
-		Integer nLibros=0;
-		String nAutores;
+		String nLibros, nAutores;
 		ModelAndView mav = new ModelAndView();
-
 		List<Libro> libros = libroService.findAll();
-		nLibros = libros.size();
-		System.out.println(libroService.numberAutors());
-		nAutores = libroService.numberAutors();
+		nLibros = libroService.numeroExistencias();
+		nAutores = libroService.numeroAutors();
 		mav.addObject("libros", libros);
 		mav.addObject("nLibros", nLibros);
 		mav.addObject("nAutores", nAutores);

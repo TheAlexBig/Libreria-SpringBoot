@@ -14,23 +14,23 @@ public class LibroServiceImpl implements LibroService {
 	LibroDAO libroDao;
 
 	@Override
-	public List<Libro> findAllTitulo(String search) {
-		return libroDao.findAllTitulo(search);
+	public List<Libro> findAll() {
+		return libroDao.findAll();
 	}
 
 	@Override
-	public List<Libro> findAllAutor(String search) {
-		return libroDao.findAllAutor(search);
+	public String numeroAutors() {
+		return libroDao.numeroAutors();
 	}
 
 	@Override
-	public List<Libro> findAllISBN(String search) {
-		return libroDao.findAllISBN(search);
+	public String numeroExistencias() {
+		return libroDao.numeroExistencias();
 	}
-
+	
 	@Override
-	public List<Libro> findAllGenero(String search) {
-		return libroDao.findAllGenero(search);
+	public List<Libro> findSearchByColumn(String column, String search) {
+		return libroDao.findSearchByColumn(column, search);
 	}
 
 	@Override
@@ -38,14 +38,6 @@ public class LibroServiceImpl implements LibroService {
 		return libroDao.findAllMore(amount);
 	}
 
-	@Override
-	public List<Libro> findAll() {
-		return libroDao.findAll();
-	}
 
-	@Override
-	public String numberAutors() {
-		return libroDao.numberAutors();
-	}
 
 }

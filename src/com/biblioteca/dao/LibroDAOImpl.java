@@ -16,49 +16,43 @@ public class LibroDAOImpl implements LibroDAO {
 	@PersistenceContext(unitName = "biblioteca")
 	private EntityManager entityManager;
 
-
 	@Override
-	public List<Libro> findAllTitulo(String search) throws DataAccessException {
+	public List<Libro> findSearchByColumn(String column, String search) throws DataAccessException {
 		StringBuffer sb = new StringBuffer();
-		sb.append("SELECT * FROM public.libro WHERE l_titulo LIKE CONCAT('%',?,'%')");
+		sb.append("SELECT * FROM public.libro WHERE ");
+		sb.append(column);
+		sb.append(" LIKE CONCAT('%',?,'%')");
 
 		Query query = entityManager.createNativeQuery(sb.toString(), Libro.class);
 		query.setParameter(1, search);
 
 		return query.getResultList();
 	}
-
 	@Override
-	public List<Libro> findAllAutor(String search) throws DataAccessException {
+	public List<Libro> findAll() throws DataAccessException {
 		StringBuffer sb = new StringBuffer();
-		sb.append("SELECT * FROM public.libro WHERE l_autor LIKE CONCAT('%',?,'%')");
+		sb.append("SELECT * FROM public.libro");
 
 		Query query = entityManager.createNativeQuery(sb.toString(), Libro.class);
-		query.setParameter(1, search);
-
 		return query.getResultList();
 	}
 
 	@Override
-	public List<Libro> findAllISBN(String search) throws DataAccessException {
+	public String numeroAutors() throws DataAccessException {
 		StringBuffer sb = new StringBuffer();
-		sb.append("SELECT * FROM public.libro WHERE l_cbarra LIKE CONCAT('%',?,'%')");
-
-		Query query = entityManager.createNativeQuery(sb.toString(), Libro.class);
-		query.setParameter(1, search);
-
-		return query.getResultList();
+		sb.append("SELECT COUNT(DISTINCT(l_autor)) FROM public.libro");
+		Query query = entityManager.createNativeQuery(sb.toString());
+		String result = query.getSingleResult().toString();
+		return result;
 	}
-
+	
 	@Override
-	public List<Libro> findAllGenero(String search) throws DataAccessException {
+	public String numeroExistencias() throws DataAccessException {
 		StringBuffer sb = new StringBuffer();
-		sb.append("SELECT * FROM public.libro WHERE l_genero LIKE CONCAT('%',?,'%')");
-
-		Query query = entityManager.createNativeQuery(sb.toString(), Libro.class);
-		query.setParameter(1, search);
-
-		return query.getResultList();
+		sb.append("SELECT SUM(l_cantidad) FROM public.libro");
+		Query query = entityManager.createNativeQuery(sb.toString());
+		String result = query.getSingleResult().toString();
+		return result;
 	}
 
 	@Override
@@ -71,24 +65,5 @@ public class LibroDAOImpl implements LibroDAO {
 
 		return query.getResultList();
 	}
-
-	@Override
-	public List<Libro> findAll() throws DataAccessException {
-		StringBuffer sb = new StringBuffer();
-		sb.append("SELECT * FROM public.libro");
-
-		Query query = entityManager.createNativeQuery(sb.toString(), Libro.class);
-		return query.getResultList();
-	}
-
-	@Override
-	public String numberAutors() throws DataAccessException {
-		StringBuffer sb = new StringBuffer();
-		sb.append("SELECT COUNT(DISTINCT(l_autor)) FROM public.libro");
-		Query query = entityManager.createNativeQuery(sb.toString());
-		String result = query.getSingleResult().toString();
-		return result;
-	}
-	
 
 }
